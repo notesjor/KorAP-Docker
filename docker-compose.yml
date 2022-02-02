@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  kalamar:
+    image: "korap/kalamar"
+    ports:
+      - "64543:64543"
+    environment:
+      KALAMAR_API: "http://kustvakt:8089/api/"
+  kustvakt:
+    image: "korap/kustvakt"
+    expose:
+      - "8089"
+    volumes:
+      - "${INDEX}:/kustvakt/index"
