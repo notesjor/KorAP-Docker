@@ -31,3 +31,14 @@ $ docker run --rm -v ${PWD}:/data korap/kalamar tei2korapxml --input /data/mycor
 
 ... will convert the i5 file into a KorAP-XML file using
 [tei2korapxml](https://github.com/KorAP/KorAP-XML-TEI).
+
+To convert the KorAP-XML archive in a second step
+into individual Krill JSON, the following command ...
+
+```shell
+$ docker run --rm -u root \
+  -v ${PWD}/:/kalamar/data/ korap/kalamar korapxml2krill archive \
+  -z -i /kalamar/data/mycorpus.zip -o ./data/
+```
+
+... will use [korapxml2krill](https://github.com/KorAP/KorAP-XML-Krill).
