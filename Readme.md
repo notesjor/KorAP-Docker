@@ -14,7 +14,7 @@ $ INDEX=./myindex docker-compose up
 This will make the frontend be available at
 `localhost:64543`.
 
-# Index conversion
+# Corpus Conversion
 
 Depending on the corpus data to be indexed, it must first be converted.
 In the case of a conversion from TEI p5/i5 format, the tools
@@ -42,3 +42,5 @@ $ docker run --rm -u root \
 ```
 
 ... will use [korapxml2krill](https://github.com/KorAP/KorAP-XML-Krill).
+
+Depending on how the source data is designed, different parameters must be specified for the conversion.
