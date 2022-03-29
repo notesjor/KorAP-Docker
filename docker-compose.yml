@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   kalamar:
-    image: "korap/kalamar"
+    image: "korap/kalamar-conv"
     ports:
       - "64543:64543"
     environment:

@@ -43,7 +43,7 @@ located in the local folder.
 The command ...
 
 ```shell
-$ docker run --rm -v ${PWD}:/data korap/kalamar tei2korapxml --input /data/mycorpus.i5.xml > mycorpus.zip
+$ docker run --rm -v ${PWD}:/data korap/kalamar-conv tei2korapxml --input /data/mycorpus.i5.xml > mycorpus.zip
 ```
 
 ... will convert the i5 file into a KorAP-XML file using
@@ -55,7 +55,7 @@ into individual Krill JSON, the following command ...
 ```shell
 $ mkdir json
 $ docker run --rm -u root \
-  -v ${PWD}/:/kalamar/data/ korap/kalamar korapxml2krill archive \
+  -v ${PWD}/:/kalamar/data/ korap/kalamar-conv korapxml2krill archive \
   -z -j -1 -i /kalamar/data/mycorpus.zip -o ./data/json/
 ```
 
