@@ -55,7 +55,7 @@ The command ...
 
 ```shell
 $ docker run --rm \
-  -v ${PWD}/example/:/data korap/kalamar:latest-conv \
+  -v ${PWD}/example:/data:z korap/kalamar:latest-conv \
   tei2korapxml \
   --inline-tokens '!cmc#morpho' \
   --input /data/dck-part1.i5.xml > dck.zip
@@ -78,7 +78,7 @@ JSON files, the following command ...
 ```shell
 $ mkdir json
 $ docker run --rm -u root \
-  -v ${PWD}/:/kalamar/data/ korap/kalamar:latest-conv\
+  -v ${PWD}:/kalamar/data:z korap/kalamar:latest-conv\
   korapxml2krill archive \
   -z \
   -i /kalamar/data/dck.zip \
@@ -106,7 +106,7 @@ be used to index the JSON files:
 
 ```shell
 $ mkdir index
-$ docker run -u root --rm -v ${PWD}/:/data/ korap/kustvakt \
+$ docker run -u root --rm -v ${PWD}:/data:z korap/kustvakt \
   Krill-Indexer.jar -c kustvakt-lite.conf \
   -i /data/json -o /data/index/
 ```

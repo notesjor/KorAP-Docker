@@ -11,4 +11,4 @@ services:
     expose:
       - "8089"
     volumes:
-      - "${INDEX}:/kustvakt/index"
+      - "${INDEX}:/kustvakt/index:z"
