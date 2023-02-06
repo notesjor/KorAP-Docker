@@ -10,6 +10,7 @@ services:
       - kustvakt
     profiles:
       - lite
+    restart: "unless-stopped"
   full-init:
     image: "korap/kalamar:latest-conv"
     command: super_client_info kalamar /kalamar/data/super_client_info
@@ -21,6 +22,7 @@ services:
       - full
       - init
     user: root
+    restart: "no"
   kalamar-full:
     image: "korap/kalamar:latest-conv"
     ports:
@@ -41,6 +43,7 @@ services:
         condition: service_completed_successfully
     profiles:
       - full
+    restart: "unless-stopped"
   kustvakt:
     image: "korap/kustvakt:latest"
     expose:
@@ -49,6 +52,7 @@ services:
       - "${INDEX}:/kustvakt/index:z"
     profiles:
       - lite
+    restart: "unless-stopped"
   kustvakt-full:
     image: "korap/kustvakt:latest-full"
     expose:
@@ -63,6 +67,7 @@ services:
     depends_on:
       full-init:
         condition: service_completed_successfully
+    restart: "unless-stopped"
 configs:
   super_client_info:
     external: true
