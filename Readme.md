@@ -11,7 +11,8 @@ with a single command.
 In addition, all relevant tools are installed and
 made available that are necessary for data conversion
 and indexing of corpora in the widely used TEI-P5
-([I5](https://www.ids-mannheim.de/en/digspra/corpus-linguistics/projects/corpus-development/ids-text-model/)) format for KorAP.
+([I5](https://www.ids-mannheim.de/en/digspra/corpus-linguistics/projects/corpus-development/ids-text-model/))
+format for KorAP.
 For different options of the tools we refer to the
 respective repositories.
 
@@ -24,8 +25,14 @@ Install [docker](https://www.docker.com/) and
 
 ## Starting
 
-To download, intialize and run KorAP pointing to an existing index
-(in this example `index` in the local directory), run
+To get KorAP running, an existing index is required.
+For testing, either download the sample index provided by
+[Kustvakt](https://github.com/KorAP/Kustvakt/tree/master/sample-index)
+or first follow the instructions on [Corpus Conversion](#corpus-conversion).
+
+To download, intialize and run KorAP pointing to that existing index
+(in this example stored in the `index` folder in the local directory),
+run
 
 ```shell
 $ INDEX=./index docker-compose --profile=lite up
