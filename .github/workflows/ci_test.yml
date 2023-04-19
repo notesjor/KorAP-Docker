@@ -6,9 +6,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Convert TEI input to KorAP-XML
-        run:  docker run --rm -v ${PWD}/example:/data korap/kalamar:latest-conv tei2korapxml --inline-tokens '!cmc#morpho' --input /data/dck-part1.i5.xml > dck.zip
+        run:  docker run --rm -v ${PWD}/example:/data korap/kalamar:latest-conv tei2korapxml --no-tokenizer --inline-tokens '!cmc#morpho' --input /data/dck-part1.i5.xml > dck.zip
       - name: Convert KorAP-XML to Krill
         run: |
           mkdir json
