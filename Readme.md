@@ -35,7 +35,7 @@ To download, intialize and run KorAP pointing to that existing index
 run
 
 ```shell
-$ INDEX=./index docker-compose -p KorAP --profile=lite up
+$ INDEX=./index docker-compose -p korap --profile=lite up
 ```
 
 This will make the frontend be available at
@@ -45,11 +45,11 @@ To run the service with an additional user management system,
 initialize and start the service with
 
 ```shell
-$ INDEX=./index docker-compose -p KorAP --profile=init up
+$ INDEX=./index docker-compose -p korap --profile=init up
 ```
 
 ```shell
-$ INDEX=./index docker-compose -p KorAP --profile=full up
+$ INDEX=./index docker-compose -p korap --profile=full up
 ```
 
 The init step creates a file called `super_client_info` in the
