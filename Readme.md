@@ -20,7 +20,7 @@ respective repositories.
 ## Requirements
 
 Install [docker](https://www.docker.com/) and
-[docker compose](https://github.com/docker/compose).
+[docker compose](https://github.com/docker/compose) (>= v2).
 
 
 ## Starting
