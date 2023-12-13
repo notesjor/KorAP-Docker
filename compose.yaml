@@ -16,7 +16,7 @@ services:
     command: super_client_info kalamar /kalamar/data/super_client_info
     volumes:
       - type: bind
-        source: "${PWD}"
+        source: "${PWD}/data/"
         target: "/kalamar/data"
     profiles:
       - full
@@ -31,10 +31,10 @@ services:
       KALAMAR_API: "http://kustvakt-full:8089/api/"
     volumes:
       - type: bind
-        source: "${PWD}/kalamar.production.conf"
+        source: "${PWD}/data/kalamar.production.conf"
         target: "/kalamar/kalamar.production.conf"
       - type: bind
-        source: "${PWD}/super_client_info"
+        source: "${PWD}/data/super_client_info"
         target: /kalamar/super_client_info
     depends_on:
       kustvakt-full:
@@ -44,6 +44,7 @@ services:
     profiles:
       - full
     restart: "unless-stopped"
+    user: root
   kustvakt:
     image: "korap/kustvakt:latest"
     expose:
@@ -57,11 +58,12 @@ services:
     image: "korap/kustvakt:latest-full"
     expose:
       - 8089
+    user: root
     volumes:
       - "${INDEX}:/kustvakt/index:z"
       - type: bind
-        source: "${PWD}/super_client_info"
-        target: /kustvakt/client/super_client_info
+        source: "${PWD}/data/"
+        target: /kustvakt/data/
     profiles:
       - full
     depends_on:

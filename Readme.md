@@ -42,16 +42,11 @@ This will make the frontend be available at
 `localhost:64543`.
 
 To run the service with an additional user management system,
-initialize and start the service with
+initialize with
 
 ```shell
 $ INDEX=./index docker-compose -p korap --profile=init up
 ```
-
-```shell
-$ INDEX=./index docker-compose -p korap --profile=full up
-```
-
 The init step creates a file called `super_client_info` in the
 current directory that acts as a shared secret between the frontend and the backend.
 To enable this in Kalamar, the configuration file `kalamar.production.conf`
@@ -66,6 +61,12 @@ needs to point to the mounted file, so it requires a configuration along the lin
         client_file => '/kalamar/super_client_info'
     }
 }
+```
+
+Then the service can be started with
+
+```shell
+$ INDEX=./index docker-compose -p korap --profile=full up
 ```
 
 
