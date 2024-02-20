@@ -25,12 +25,17 @@ Install [docker](https://www.docker.com/) and
 
 ## Starting
 
-To get KorAP running, an existing index is required.
-For testing, either download the sample index provided by
-[Kustvakt](https://github.com/KorAP/Kustvakt/tree/master/sample-index)
-or first follow the instructions on [Corpus Conversion](#corpus-conversion).
+To get KorAP running, an index is required.
+For testing, there is a test index available as a docker image. Just run
 
-To download, intialize and run KorAP pointing to that existing index
+```
+$ INDEX='example-index' docker-compose -p korap --profile=lite --profile=example up
+```
+
+to start the example image.
+Otherwise it's possible to download the sample index provided by
+[Kustvakt](https://github.com/KorAP/Kustvakt/tree/master/sample-index).
+To download, intialize and run KorAP pointing to that index folder
 (in this example stored in the `index` folder in the local directory),
 run
 
@@ -40,6 +45,9 @@ $ INDEX=./index docker-compose -p korap --profile=lite up
 
 This will make the frontend be available at
 `localhost:64543`.
+
+To use your own index, please follow the instructions
+on [Corpus Conversion](#corpus-conversion) first.
 
 To run the service with an additional user management system,
 initialize with

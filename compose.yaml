@@ -3,7 +3,7 @@ volumes:
   example-index:
 services:
   examplecontainer:
-    image: "korap/example-index:latest"
+    image: "korap/example-index:0.1"
     profiles:
       - example
     volumes:
