@@ -31,7 +31,9 @@ For testing, there is a test index available as a docker image. Just run
 INDEX='example-index' docker-compose -p korap --profile=lite --profile=example up
 ```
 
-to start the example image.
+to start the example image and the service with Linux
+(See [here](#Windows) for more information on Windows).
+
 Otherwise it's possible to download the sample index provided by
 [Kustvakt](https://github.com/KorAP/Kustvakt/tree/master/sample-index).
 To download, intialize and run KorAP pointing to that index folder
@@ -155,11 +157,22 @@ docker run -u root --rm -v ${PWD}:/data:z korap/kustvakt \
 After that, the index can be loaded with the aforementioned
 call and is searchable via the browser.
 
+## Windows
+
+Windows with Powershell requires environment variables to pass in a different way.
+In addition the `PWD` variable is not set beforehand. To run, e.g., the KorAP one-liner
+with Windows, you have to start
+
+```powershell
+$env:INDEX='example-index'; $env:PWD='.'; docker-compose -p korap --profile=lite --profile=example up
+
+```
+
 ## Development and License
 
 **Authors**: [Nils Diewald](https://www.nils-diewald.de/), Harald Lüngen, Marc Kupietz
 
-Copyright (c) 2022, [IDS Mannheim](https://www.ids-mannheim.de/), Germany
+Copyright (c) 2022-2024, [IDS Mannheim](https://www.ids-mannheim.de/), Germany
 
 KorAP-Docker is published under the BSD-2 License.
 
