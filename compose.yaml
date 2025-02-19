@@ -3,7 +3,7 @@ services:
   kalamar:
     image: "korap/kalamar:latest-conv"
     ports:
-      - "64543:64543"
+      - "8080:64543"
     environment:
       KALAMAR_API: "http://kustvakt:8089/api/"
     depends_on:
@@ -24,7 +24,7 @@ services:
   kalamar-full:
     image: "korap/kalamar:latest-conv"
     ports:
-      - "64543:64543"
+      - "8080:64543"
     environment:
       KALAMAR_API: "http://kustvakt-full:8089/api/"
     volumes:
