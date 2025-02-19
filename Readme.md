@@ -11,7 +11,8 @@ with a single command.
 In addition, all relevant tools are installed and
 made available that are necessary for data conversion
 and indexing of corpora in the widely used TEI-P5
-([I5](https://www.ids-mannheim.de/en/digspra/corpus-linguistics/projects/corpus-development/ids-text-model/)) format for KorAP.
+([I5](https://www.ids-mannheim.de/en/digspra/corpus-linguistics/projects/corpus-development/ids-text-model/))
+format for KorAP.
 For different options of the tools we refer to the
 respective repositories.
 
@@ -19,33 +20,37 @@ respective repositories.
 ## Requirements
 
 Install [docker](https://www.docker.com/) and
-[docker compose](https://github.com/docker/compose).
-
+[docker compose](https://github.com/docker/compose) (>= v2).
 
 ## Starting
 
-To download, intialize and run KorAP pointing to an existing index
-(in this example `index` in the local directory), run
+To get KorAP running, an index is required.
+For testing, there is a test index available as a docker image. Just run
 
 ```shell
-$ INDEX=./index docker-compose --profile=lite up
+INDEX='example-index' docker-compose -p korap --profile=lite --profile=example up
+```
+
+to start the example image and the service with Linux
+(See [here](#Windows) for more information on Windows).
+
+Otherwise it's possible to download the sample index provided by
+[Kustvakt](https://github.com/KorAP/Kustvakt/tree/master/sample-index).
+To download, intialize and run KorAP pointing to that index folder
+(in this example stored in the `index` folder in the local directory),
+run
+
+```shell
+INDEX=./index docker-compose -p korap --profile=lite up
 ```
 
 This will make the frontend be available at
 `localhost:64543`.
 
-To run the service with an additional user management system,
-initialize and start the service with
+To use your own index, please follow the instructions
+on [Corpus Conversion](#corpus-conversion) first.
 
-```shell
-$ INDEX=./index docker-compose --profile=init up
-$ INDEX=./index docker-compose --profile=full up
-```
-
-The init step creates a file called `super_client_info` in the
-current directory that acts as a shared secret between the frontend and the backend.
-To enable this in Kalamar, the configuration file `kalamar.production.conf`
-needs to point to the mounted file, so it requires a configuration along the lines of
+To run the service with a user management system, create a file `$(pwd)/data/kalamar.production.conf` containing the following configuration:
 
 ```perl
 {
@@ -58,6 +63,14 @@ needs to point to the mounted file, so it requires a configuration along the lin
 }
 ```
 
+
+Then start the service with
+
+```shell
+INDEX=./index docker-compose -p korap --profile=full up
+```
+
+Login with `user1` and `password1`. To change authentication settings, see the `/kusvakt/ldap` folder inside the docker container and Kustvakt's [LDAP Settings Wiki](https://github.com/KorAP/Kustvakt/wiki/LDAP-Setting) for documentation.
 
 ## Corpus Conversion
 
@@ -78,7 +91,7 @@ The file is located at `example/dck-part1.i5.xml`.
 The command ...
 
 ```shell
-$ docker run --rm \
+docker run --rm \
   -v ${PWD}/example:/data:z korap/kalamar:latest-conv \
   tei2korapxml \
   --inline-tokens '!cmc#morpho' \
@@ -100,8 +113,11 @@ into individual [Krill](https://github.com/KorAP/Krill) compatible
 JSON files, the following command ...
 
 ```shell
-$ mkdir json
-$ docker run --rm -u root \
+mkdir json
+```
+
+```shell
+docker run --rm -u root \
   -v ${PWD}:/kalamar/data:z korap/kalamar:latest-conv\
   korapxml2krill archive \
   -z \
@@ -129,8 +145,11 @@ used for default annotation of sentence and paragraph boundaries.
 be used to index the JSON files:
 
 ```shell
-$ mkdir index
-$ docker run -u root --rm -v ${PWD}:/data:z korap/kustvakt \
+mkdir index
+```
+
+```shell
+docker run -u root --rm -v ${PWD}:/data:z korap/kustvakt \
   Krill-Indexer.jar -c /kustvakt/kustvakt-lite.conf \
   -i /data/json -o /data/index/
 ```
@@ -138,11 +157,22 @@ $ docker run -u root --rm -v ${PWD}:/data:z korap/kustvakt \
 After that, the index can be loaded with the aforementioned
 call and is searchable via the browser.
 
+## Windows
+
+Windows with Powershell requires environment variables to pass in a different way.
+In addition the `PWD` variable is not set beforehand. To run, e.g., the KorAP one-liner
+with Windows, you have to start
+
+```powershell
+$env:INDEX='example-index'; $env:PWD='.'; docker-compose -p korap --profile=lite --profile=example up
+
+```
+
 ## Development and License
 
 **Authors**: [Nils Diewald](https://www.nils-diewald.de/), Harald Lüngen, Marc Kupietz
 
-Copyright (c) 2022, [IDS Mannheim](https://www.ids-mannheim.de/), Germany
+Copyright (c) 2022-2024, [IDS Mannheim](https://www.ids-mannheim.de/), Germany
 
 KorAP-Docker is published under the BSD-2 License.
 
