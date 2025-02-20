@@ -1,3 +1,6 @@
+1- POWERSHELL
+2- $env:INDEX='./index'; $env:PWD='.';
+
 Konvertiere TEI zu KorAP-XML - nicht nötig, da der CorpusExplorer selbst KorapXML erzeugt
 docker run --rm -v ${PWD}/example:/data:z korap/kalamar:latest-conv tei2korapxml --inline-tokens '!cmc#morpho' --no-tokenizer --input /data/dck-part1.i5.xml > dck.zip
 docker run --rm -v ${PWD}/example:/data:z korap/kalamar:latest-conv tei2korapxml --inline-tokens '!cmc#morpho' --input /data/dck-part1.i5.xml > dck.zip
@@ -6,6 +9,9 @@ Original (funktioniert nur mit Beispieldaten)
 docker run --rm -u root -v ${PWD}:/kalamar/data:z korap/kalamar:latest-conv korapxml2krill archive -z -i /kalamar/data/dck.zip --jobs -1 --token 'cmc#morpho' --base-paragraphs 'DeReKo#Structure' --base-sentences 'DeReKo#Structure' -o ./data/json/
 Modifiziert für CorpusExplorer
 docker run --rm -u root -v ${PWD}:/kalamar/data:z korap/kalamar:latest-conv korapxml2krill archive -z -i /kalamar/data/dck.zip --jobs -1 --token 'base#tokens' --base-paragraphs 'struct#structure' --base-sentences 'struct#structure' -o ./data/json/
+
+Modifiziert, um TreeTagger-Annotation zu laden:
+docker run --rm -u root -v ${PWD}:/kalamar/data:z korap/kalamar:latest-conv korapxml2krill archive -z -i /kalamar/data/wp.zip -i /kalamar/data/wp.tree_tagger.zip --jobs -1 --token 'base#tokens' --base-paragraphs 'struct#structure' --base-sentences 'struct#structure'  --anno 'tree_tagger#lex' -o ./data/json/
 
 Indexer
 docker run -u root --rm -v ${PWD}:/data:z korap/kustvakt Krill-Indexer.jar -c /kustvakt/kustvakt-lite.conf -i /data/json -o /data/index/
